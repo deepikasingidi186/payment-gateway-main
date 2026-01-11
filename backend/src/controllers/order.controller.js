@@ -44,3 +44,26 @@ exports.getOrder = async (req, res) => {
     });
   }
 };
+
+
+const pool = require("../config/db");
+
+exports.getPublicOrder = async (req, res) => {
+  const { orderId } = req.params;
+
+  const result = await pool.query(
+    "SELECT id, amount, currency, status FROM orders WHERE id = $1",
+    [orderId]
+  );
+
+  if (result.rows.length === 0) {
+    return res.status(404).json({
+      error: {
+        code: "NOT_FOUND_ERROR",
+        description: "Order not found"
+      }
+    });
+  }
+
+  return res.status(200).json(result.rows[0]);
+};

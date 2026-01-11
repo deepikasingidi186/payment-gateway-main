@@ -3,6 +3,7 @@ const router = express.Router();
 const auth = require("../middleware/auth.middleware");
 const orderController = require("../controllers/order.controller");
 
+router.get("/:orderId/public", orderController.getPublicOrder);
 router.post("/", auth, orderController.createOrder);
 router.get("/:orderId", auth, orderController.getOrder);
 

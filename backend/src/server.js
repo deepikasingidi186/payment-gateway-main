@@ -7,6 +7,9 @@ const { seedTestMerchant } = require("./services/seed.service");
 
 const PORT = process.env.PORT || 8000;
 
+app.use("/api/v1/stats", require("./routes/stats.routes"));
+app.use("/api/v1/transactions", require("./routes/transactions.routes"));
+
 (async () => {
   const schema = fs.readFileSync(
     path.join(__dirname, "config/schema.sql")
